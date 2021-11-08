@@ -2,12 +2,15 @@
 
 # ---
 # Example: 
-# sh compress.sh '/path/to/directory/*'
+# sh compress.sh '/path/to/files' '/path/to/destination'
 # ---
 
 FILES=$1
+DESTINATION=$2
 
-for FILE in $FILES
+mkdir -p $DESTINATION
+
+for FILE in $FILES/*
 do
 if [[ "$FILE" == *\.* ]]
 then
@@ -23,7 +26,7 @@ then
 		QUALITY=65
 	fi
 
-	convert $FILE -sampling-factor 4:2:0 -strip -quality $QUALITY -interlace JPEG -set colorspace RGB $FILE
-	echo compressed $FILE "("$WIDTH"px, "$QUALITY"%)"
+	convert $FILE -sampling-factor 4:2:0 -strip -quality $QUALITY -interlace JPEG -set colorspace RGB $DESTINATION/$(basename "${FILE}")
+	echo compressed $FILE "("$WIDTH"px, "$QUALITY"%)" $?
 fi
 done

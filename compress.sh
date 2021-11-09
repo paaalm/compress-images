@@ -18,16 +18,16 @@ then
 
 	if [ -f "$DESTINATION_FILE" ]; then
 		echo "exists: $DESTINATION_FILE"
-	else
+	elif [ -f "$FILE" ]; then
 		WIDTH=`identify -format '%w' "$FILE"`
 		TYPE=`identify -format '%m' "$FILE"`
 		QUALITY=85
 			
-		if [ $WIDTH > 3839 ]; then	
+		if [ $WIDTH -gt 3839 ]; then	
 			QUALITY=45
-		elif [ $WIDTH > 1959 ]; then	
+		elif [ $WIDTH -gt 1959 ]; then	
 			QUALITY=55
-		elif [ $WIDTH > 1279 ]; then
+		elif [ $WIDTH -gt 1279 ]; then
 			QUALITY=65
 		fi
 
